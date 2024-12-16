@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #6b9dfc, #00d4ff);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: #003f91;
+            padding: 20px 10%;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            animation: fadeIn 2s;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            font-size: 1.2em;
+            animation: fadeIn 3s;
+        }
+
+        main {
+            padding: 40px 10%;
+            text-align: center;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            animation: slideIn 1.5s ease-out;
+        }
+
+        .content h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        .content p {
+            font-size: 1.2em;
+            line-height: 1.8;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .card {
+            width: 50px;
+            height: 70px;
+            background: #fff;
+            color: #003f91;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            color: #003f91;
+            background: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #003f91;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            padding: 20px 0;
+            background: #003f91;
+            font-size: 1em;
+            color: #fff;
+        }
+
+        .steps {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .steps p {
+            font-size: 1em;
+            margin: 5px 0;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Welcome to the Educational Page</h1>
+    <p>Learn something new every day!</p>
+</header>
+
+<main>
+    <div class="content">
+        <h2>Fisher-Yates Shuffle Algorithm</h2>
+        <p>
+            The Fisher-Yates Shuffle is an efficient method to randomly shuffle a list. 
+            It ensures that every possible permutation is equally likely, making it perfect for use in applications such as card games, 
+            randomizing data, or shuffling playlists.
+        </p>
+        <div class="cards" id="cards-container">
+            <div class="card">1</div>
+            <div class="card">2</div>
+            <div class="card">3</div>
+            <div class="card">4</div>
+            <div class="card">5</div>
+        </div>
+        <button onclick="shuffleCards()">Shuffle Cards</button>
+        <div class="steps" id="steps-container">
+            <h3>Steps:</h3>
+        </div>
+    </div>
+</main>
+
+<footer>
+    © 2024 Almonther 
+</footer>
+
+<script>
+    function printArray(arr) {
+        return arr.join(" ");
+    }
+
+    function randomize(arr) {
+        const stepsContainer = document.getElementById('steps-container');
+        stepsContainer.innerHTML = ''; // Clear previous steps
+
+        for (let i = arr.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+
+            const step = document.createElement('p');
+            step.textContent = `Step: Swapped index ${i} (${arr[i]}) with index ${j} (${arr[j]}) -> ${printArray(arr)}`;
+            stepsContainer.appendChild(step);
+        }
+    }
+
+    function shuffleCards() {
+        const cardsContainer = document.getElementById('cards-container');
+        const cards = Array.from(cardsContainer.children);
+        const cardValues = cards.map(card => card.textContent);
+
+        // Shuffle the card values
+        randomize(cardValues);
+
+        // Update the card elements with the new order
+        cards.forEach((card, index) => {
+            card.textContent = cardValues[index];
+            card.style.animation = 'fadeIn 0.5s';
+        });
+    }
+</script>
+
+</body>
+</html>
